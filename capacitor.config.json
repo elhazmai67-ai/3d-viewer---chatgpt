@@ -1,0 +1,6 @@
+{
+  "appId": "com.printview3d.app",
+  "appName": "PrintView 3D",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="PrintView 3D - STL and 3MF viewer" />
+  <title>PrintView 3D</title>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">◇</div><div><strong>PrintView <span>3D</span></strong><small>MODEL VIEWER & ANALYZER</small></div></div>
+      <div class="top-actions">
+        <button id="openBtn" class="primary">＋ <span>Open files</span></button>
+        <button id="clearBtn" class="ghost">Clear all</button>
+        <input id="fileInput" type="file" accept=".stl,.3mf,model/stl,application/vnd.ms-package.3dmanufacturing-3dmodel+xml" multiple hidden />
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-row">
+        <div><div class="eyebrow">YOUR 3D WORKSPACE</div><h1>Explore every model.<br/><span>One view.</span></h1><p>Import STL and 3MF files, arrange them together and inspect their dimensions.</p></div>
+        <div class="quick-stats">
+          <div><b id="fileCount">0</b><small>FILES</small></div>
+          <div><b id="totalSize">0 MB</b><small>TOTAL SIZE</small></div>
+          <div><b id="unitLabel">mm</b><small>UNITS</small></div>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <div class="section-head">
+          <div><h2>3D Grid Viewer</h2><p id="viewerHint">Open up to 10 models to see them arranged together.</p></div>
+          <div class="view-tools">
+            <button id="fitBtn" class="tool-btn">⌗ <span>Fit all</span></button>
+            <button id="resetBtn" class="tool-btn">↺ <span>Reset</span></button>
+            <select id="unitSelect" aria-label="Dimension units"><option value="mm">mm</option><option value="cm">cm</option><option value="in">in</option></select>
+          </div>
+        </div>
+        <div class="stage-wrap">
+          <div id="stage" class="stage">
+            <div id="emptyState" class="empty-state">
+              <div class="upload-icon">⇧</div><h3>Your workspace is ready</h3>
+              <p>Select multiple STL or 3MF files. You can open up to 10 models together.</p>
+              <button id="emptyOpenBtn" class="primary">＋ Choose 3D files</button>
+            </div>
+            <div class="stage-badge">INTERACTIVE 3D SCENE</div>
+            <div class="stage-help">Drag to rotate · Pinch / scroll to zoom · Two fingers to pan</div>
+          </div>
+        </div>
+        <div class="legend"><span><i class="dot blue"></i> Model</span><span><i class="dot green"></i> Ground grid</span><span>All models share one scene</span></div>
+      </section>
+
+      <section class="models-section">
+        <div class="section-head"><div><h2>Loaded models <span id="modelCount" class="count-pill">0</span></h2><p>Tap a model to inspect its measurements.</p></div></div>
+        <div id="modelList" class="model-grid">
+          <div class="empty-list">No models loaded yet.</div>
+        </div>
+      </section>
+
+      <section class="details-section">
+        <div class="section-head"><div><h2>Model analyzer</h2><p id="selectedName">Select a model to see detailed information.</p></div></div>
+        <div id="detailsGrid" class="details-grid">
+          <div class="detail-card"><small>WIDTH (X)</small><b>—</b><span>mm</span></div>
+          <div class="detail-card"><small>DEPTH (Y)</small><b>—</b><span>mm</span></div>
+          <div class="detail-card"><small>HEIGHT (Z)</small><b>—</b><span>mm</span></div>
+          <div class="detail-card"><small>VOLUME</small><b>—</b><span>cm³</span></div>
+          <div class="detail-card"><small>TRIANGLES</small><b>—</b><span>faces</span></div>
+          <div class="detail-card"><small>VERTICES</small><b>—</b><span>points</span></div>
+        </div>
+        <div class="weight-panel">
+          <div><h3>Estimated material weight</h3><p>Estimate only. Actual printed weight depends on infill, walls and supports.</p></div>
+          <div class="weight-controls">
+            <select id="materialSelect"><option value="1.24">PLA</option><option value="1.27">PETG</option><option value="1.04">ABS</option><option value="1.21">ASA</option><option value="1.20">TPU</option><option value="custom">Custom density</option></select>
+            <input id="infillInput" type="number" min="1" max="100" value="100" aria-label="Infill percent" />
+            <span>% infill</span>
+            <b id="weightValue">— g</b>
+          </div>
+          <div id="customDensityWrap" class="custom-density" hidden><label>Density (g/cm³) <input id="densityInput" type="number" min="0.01" step="0.01" value="1.24"></label></div>
+        </div>
+      </section>
+    </main>
+    <footer><span>PrintView 3D</span><span>Files are processed locally on your device.</span><span>STL · 3MF</span></footer>
+    <div id="toast" class="toast" role="status"></div>
+  </div>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
